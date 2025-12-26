@@ -133,8 +133,10 @@ func grabValue(err *error, buf []byte, equal int) (value []byte) {
 	return
 }
 
-var singleQuote byte = '\''
-var ErrSyntax = fmt.Errorf("SYNTAX ERROR")
+var (
+	singleQuote byte = '\''
+	ErrSyntax        = fmt.Errorf("SYNTAX ERROR")
+)
 
 // normalizeQuotes replaces single tick quotes with `
 func normalizeQuotes(value []byte) {

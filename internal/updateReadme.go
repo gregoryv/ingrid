@@ -11,15 +11,18 @@ import (
 	"strings"
 )
 
-var inFile = flag.String("in", "doc.go", "input file")
-var exFile = flag.String("example", "map_test.go", "example input file")
-var outFile = flag.String("out", "README.md", "output file")
+var (
+	inFile  = flag.String("in", "doc.go", "input file")
+	exFile  = flag.String("example", "map_test.go", "example input file")
+	outFile = flag.String("out", "README.md", "output file")
+)
 
 func main() {
 	var buf bytes.Buffer
 
 	fmt.Fprintln(&buf,
 		"<!-- GENERATED, DO NOT EDIT! See internal/updateReadme.go -->\n",
+		"ARCHIVED! Moved to https://sogvin.com/ingrid\n",
 		`<img src="./internal/banner.png">`,
 	)
 
@@ -27,10 +30,11 @@ func main() {
 	appendExample(&buf, *exFile)
 	appendBenchmark(&buf)
 
-	if err := os.WriteFile(*outFile, buf.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(*outFile, buf.Bytes(), 0o644); err != nil {
 		log.Fatal(err)
 	}
 }
+
 func appendExample(buf *bytes.Buffer, filename string) {
 	fh, err := os.Open(filename)
 	if err != nil {
